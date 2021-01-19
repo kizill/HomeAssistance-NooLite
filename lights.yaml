@@ -23,7 +23,6 @@
   channel: 2
   name: "kitchen_light"
   scan_interval: 60
-  type: dimmer
   mode: noolite-f
 
 - platform: noolite
@@ -42,12 +41,16 @@
   channel: 6
   name: "hall_light"
   scan_interval: 60
-  type: dimmer
+  mode: noolite-f
+
+- platform: noolite
+  channel: 7
+  name: "hall_extra_light"
+  scan_interval: 60
   mode: noolite-f
 
 - platform: noolite
   channel: 8
-  name: "hall_extra_light"
+  name: "street_light"
   scan_interval: 60
-  type: dimmer
   mode: noolite-f

@@ -29,6 +29,8 @@ BATTERY_LEVEL_DISCHARGED = 0
 DOMAIN = 'noolite'
 
 CONF_CHANNEL = "channel"
+CONF_MAX_CHANNEL_TO_SCAN = "max_ch_for_scan"
+CONF_MODULE_ID = "module_id"
 CONF_BROADCAST = "broadcast"
 
 DEFAULT_PORT = '/dev/ttyUSB0'
@@ -36,6 +38,7 @@ DEFAULT_PORT = '/dev/ttyUSB0'
 CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
         vol.Optional(CONF_PORT, default=DEFAULT_PORT): cv.string,
+        vol.Optional(CONF_MAX_CHANNEL_TO_SCAN, default=-1): cv.int,
     }),
 }, extra=vol.ALLOW_EXTRA)
 
@@ -57,6 +60,14 @@ def setup(hass, config):
     except KeyError as exc:
         _LOGGER.error("Configuration for NooLite component doesn't found: %s", exc)
         return False
+
+    #if config[CONF_MAX_CHANNEL_TO_SCAN] > 0:
+    for ch_id in range(11):
+        try:
+            responses = hass.data[DOMAIN].read_state(None, ch_id, False, ModuleMode.NOOLITE_F)
+            _LOGGER.warning("Channel: %i -> %s", ch_id, str(responses))
+        except:
+            _LOGGER.exception()
 
     def _release_noolite():
         hass.data[DOMAIN].release()
@@ -85,7 +96,10 @@ class NooLiteGenericModule(ToggleEntity):
         self._name = config[CONF_NAME]
         self._mode = _module_mode(config)
         self._broadcast = config[CONF_BROADCAST]
-        self._channel = config[CONF_CHANNEL]
+        self._module_id = config[CONF_MODULE_ID] if config[CONF_MODULE_ID] >= 0 else None
+        self._channel = config[CONF_CHANNEL] if config[CONF_CHANNEL] >= 0 else None
+        assert self._channel is None or self._module_id is None, "Either module_id or channel should be None"
+        assert self._channel is not None or self._module_id is not None, "Either module_id or channel should be not None"
         self._state = STATE_UNKNOWN
         self._level = 0.0
 
