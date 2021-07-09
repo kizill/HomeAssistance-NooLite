@@ -28,8 +28,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_BROADCAST, default=False): cv.boolean,
     vol.Optional(CONF_SCAN_INTERVAL, default=_SCAN_INTERVAL): cv.time_period,
     vol.Required(CONF_NAME): cv.string,
-    vol.Optional(CONF_CHANNEL, default=-1): cv.int,
-    vol.Optional(CONF_MODULE_ID, default=-1): cv.int,
+    vol.Optional(CONF_CHANNEL, default=-1): vol.Coerce(int),
+    vol.Optional(CONF_MODULE_ID, default=-1): vol.Coerce(int),
     vol.Required(CONF_MODE, default=MODE_NOOLITE_F): vol.In(MODES_NOOLITE),
 })
 
