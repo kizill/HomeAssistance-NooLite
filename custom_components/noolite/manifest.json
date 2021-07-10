@@ -6,5 +6,6 @@
   "dependencies": [],
   "codeowners": ["@SergejPr"],
   "issue_tracker": "https://github.com/SergejPr/HomeAssistance-NooLite/issues",
-  "requirements": ["NooLite-F==0.1.2"]
+  "requirements": ["NooLite-F==0.1.2"],
+  "iot_class": "local_polling"
 }
