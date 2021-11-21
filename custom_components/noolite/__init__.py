@@ -39,16 +39,6 @@ def setup(hass, config):
         _LOGGER.error("Configuration for NooLite component doesn't found: %s", exc)
         return False
 
-    for ch_id in range(11):
-        try:
-            from NooLite_F import ModuleMode
-            responses = hass.data[DOMAIN].read_state(None, ch_id, False, ModuleMode.NOOLITE_F)
-            _LOGGER.warning("Channel: %i state -> %s", ch_id, str(responses))
-            responses = hass.data[DOMAIN].read_module_config(None, ch_id, False, ModuleMode.NOOLITE_F)
-            _LOGGER.warning("Channel: %i config -> %s", ch_id, str(responses))
-        except:
-            _LOGGER.exception("Got exception while scanning noolite-f channels")
-
     def _release_noolite():
         hass.data[DOMAIN].release()
 

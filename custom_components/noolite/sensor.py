@@ -9,23 +9,21 @@ from homeassistant.helpers import config_validation as cv
 
 from custom_components.noolite import (CONF_CHANNEL, NooLiteGenericSensor, DOMAIN)
 from custom_components.noolite import (PLATFORM_SCHEMA)
+from custom_components.noolite.const import (
+    _TYPE_TEMP, _TYPE_HUMI,
+    _TYPE_ANALOG, _TYPE_REMOTE,
+    MEASUREMENT_PERCENTS,
+    _BATTERY_DATA_INTERVAL
+)
 
 DEPENDENCIES = ['noolite']
 
 _LOGGER = logging.getLogger(__name__)
 
-_TYPE_TEMP = 'temp'
-_TYPE_HUMI = 'humi'
-_TYPE_ANALOG = 'analog'
-_TYPE_REMOTE = 'remote'
-
 _TYPES = [_TYPE_HUMI, _TYPE_TEMP, _TYPE_ANALOG, _TYPE_REMOTE]
 
 _DATA_INTERVAL = 1.5 * 60 * 60
 
-_BATTERY_DATA_INTERVAL = 6 * 60 * 60
-
-MEASUREMENT_PERCENTS = "%"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_TYPE): vol.In(_TYPES),

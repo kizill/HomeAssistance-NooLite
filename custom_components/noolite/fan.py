@@ -1,5 +1,4 @@
 import logging
-from datetime import timedelta
 
 import voluptuous as vol
 from homeassistant.components.fan import (FanEntity, SUPPORT_SET_SPEED, SUPPORT_OSCILLATE, SUPPORT_DIRECTION,
@@ -11,14 +10,16 @@ from custom_components.noolite import (CONF_BROADCAST, CONF_CHANNEL, MODES_NOOLI
                                        NooLiteGenericModule, DOMAIN)
 from custom_components.noolite import (PLATFORM_SCHEMA)
 
+from custom_components.noolite.const import (
+    _SCAN_INTERVAL
+)
+
 FULL_SUPPORT = SUPPORT_SET_SPEED | SUPPORT_OSCILLATE | SUPPORT_DIRECTION
 LIMITED_SUPPORT = SUPPORT_SET_SPEED
 
 DEPENDENCIES = ['noolite']
 
 _LOGGER = logging.getLogger(__name__)
-
-_SCAN_INTERVAL = timedelta(seconds=60)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_BROADCAST, default=False): cv.boolean,

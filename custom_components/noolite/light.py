@@ -1,5 +1,4 @@
 import logging
-from datetime import timedelta
 
 import voluptuous as vol
 from homeassistant.components.light import LightEntity, SUPPORT_BRIGHTNESS, ATTR_BRIGHTNESS, SUPPORT_COLOR, ATTR_RGB_COLOR
@@ -11,15 +10,15 @@ from custom_components.noolite import (CONF_BROADCAST, CONF_CHANNEL, CONF_MODULE
 from custom_components.noolite import (NooLiteGenericModule)
 from custom_components.noolite import (PLATFORM_SCHEMA)
 
+from custom_components.noolite.const import (
+    _SCAN_INTERVAL,
+    _TYPE_LIGHT, _TYPE_DIMMER, _TYPE_RGB_LED
+)
+
 DEPENDENCIES = ['noolite']
 
 _LOGGER = logging.getLogger(__name__)
 
-_SCAN_INTERVAL = timedelta(seconds=60)
-
-_TYPE_LIGHT = 'light'
-_TYPE_DIMMER = 'dimmer'
-_TYPE_RGB_LED = 'rgb_led'
 
 _TYPES = [_TYPE_LIGHT, _TYPE_DIMMER, _TYPE_RGB_LED]
 

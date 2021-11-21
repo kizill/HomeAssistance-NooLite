@@ -8,24 +8,27 @@ from typing import Optional
 from homeassistant.const import CONF_NAME, CONF_MODE, ATTR_BATTERY_LEVEL
 from homeassistant.const import STATE_UNKNOWN
 
-def _module_mode(config):
-    from NooLite_F import ModuleMode
-
-    mode = config[CONF_MODE].lower()
-
-    if mode == MODE_NOOLITE:
-        module_mode = ModuleMode.NOOLITE
-    else:
-        module_mode = ModuleMode.NOOLITE_F
-
-    return module_mode
-
 
 class NooLiteGenericModule(ToggleEntity):
+
+    @staticmethod
+    def _module_mode(config):
+        from NooLite_F import ModuleMode
+
+        mode = config[CONF_MODE].lower()
+
+        if mode == MODE_NOOLITE:
+            module_mode = ModuleMode.NOOLITE
+        else:
+            module_mode = ModuleMode.NOOLITE_F
+
+        return module_mode
+
+
     def __init__(self, config, device):
         self._device = device
         self._name = config[CONF_NAME]
-        self._mode = _module_mode(config)
+        self._mode = NooLiteGenericModule._module_mode(config)
         self._broadcast = config[CONF_BROADCAST]
         self._module_id = config[CONF_MODULE_ID] if config[CONF_MODULE_ID] >= 0 else None
         self._channel = config[CONF_CHANNEL] if config[CONF_CHANNEL] >= 0 else None

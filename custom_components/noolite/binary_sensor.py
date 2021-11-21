@@ -13,6 +13,9 @@ from homeassistant.helpers import config_validation as cv
 from custom_components.noolite import (CONF_CHANNEL, BATTERY_LEVEL_DISCHARGED,
                                        BATTERY_LEVEL_NORMAL, NooLiteGenericSensor, DOMAIN)
 from custom_components.noolite import (PLATFORM_SCHEMA)
+from custom_components.noolite.const import (
+    _BATTERY_DATA_INTERVAL
+)
 
 DEPENDENCIES = ['noolite']
 
@@ -38,7 +41,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 })
 
 _DATA_INTERVAL = 13 * 60 * 60
-_BATTERY_DATA_INTERVAL = 6 * 60 * 60
 
 
 def setup_platform(hass, config, add_devices, discovery_info=None):

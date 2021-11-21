@@ -1,5 +1,4 @@
 import logging
-from datetime import timedelta
 
 import voluptuous as vol
 from homeassistant.components.switch import SwitchEntity
@@ -10,12 +9,13 @@ from homeassistant.helpers import config_validation as cv
 from custom_components.noolite import (CONF_BROADCAST, CONF_CHANNEL, MODES_NOOLITE, MODE_NOOLITE_F, DOMAIN)
 from custom_components.noolite import (NooLiteGenericModule)
 from custom_components.noolite import (PLATFORM_SCHEMA)
+from custom_components.noolite.const import (
+    _SCAN_INTERVAL
+)
 
 DEPENDENCIES = ['noolite']
 
 _LOGGER = logging.getLogger(__name__)
-
-_SCAN_INTERVAL = timedelta(seconds=60)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_BROADCAST, default=False): cv.boolean,
