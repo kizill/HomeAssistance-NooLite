@@ -39,9 +39,26 @@ def setup(hass, config):
         _LOGGER.error("Configuration for NooLite component doesn't found: %s", exc)
         return False
 
-    def _release_noolite():
+    def _release_noolite(event):
         hass.data[DOMAIN].release()
 
     hass.bus.listen_once(EVENT_HOMEASSISTANT_STOP, _release_noolite)
 
     return True
+
+
+def setup_platform(hass, config, add_devices, discovery_info=None):
+    """Setup the NooLite platform."""
+    _LOGGER.info(config)
+    return
+    module_type = config[CONF_TYPE].lower()
+
+    devices = []
+    if module_type == _TYPE_LIGHT:
+        devices.append(NooLiteSwitch(config, hass.data[DOMAIN]))
+    elif module_type == _TYPE_DIMMER:
+        devices.append(NooLiteDimmerSwitch(config, hass.data[DOMAIN]))
+    elif module_type == _TYPE_RGB_LED:
+        devices.append(NooLiteRGBLedSwitch(config, hass.data[DOMAIN]))
+
+    add_devices(devices)
