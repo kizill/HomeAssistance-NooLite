@@ -145,7 +145,7 @@ class NooLiteGenericSensor(Entity):
         return False
 
     @property
-    def state_attributes(self):
+    def extra_state_attributes(self):
         attr = {
             ATTR_BATTERY_LEVEL: self._battery
         }

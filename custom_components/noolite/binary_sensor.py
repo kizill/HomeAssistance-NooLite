@@ -137,7 +137,7 @@ class NooLiteBatterySensor(NooLiteGenericSensor, BinarySensorEntity):
         return "battery"
 
     @property
-    def state_attributes(self):
+    def extra_state_attributes(self):
         return None
 
     @property
